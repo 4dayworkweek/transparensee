@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sign Up</title>
+  <script>
+    function validatePassword() {
+      var password = document.getElementById("user_password").value;
+      var confirmPassword = document.getElementById("user_password_confirmation").value;
+      var errorMessage = document.getElementById("error-message");
+      if (password != confirmPassword) {
+        errorMessage.innerHTML = "Passwords do not match.";
+        errorMessage.style.display = "block";
+        document.getElementById("user_password").classList.add("border-red-500");
+        document.getElementById("user_password_confirmation").classList.add("border-red-500");
+        return false;
+      } else {
+        errorMessage.style.display = "none";
+        document.getElementById("user_password").classList.remove("border-red-500");
+        document.getElementById("user_password_confirmation").classList.remove("border-red-500");
+        return true;
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-100 h-screen flex items-center justify-center">
+  <div class="w-full max-w-xs">
+    <div class="text-center mb-6">
+      <h1 class="text-2xl font-medium">TransparenSee</h1>
+    </div>
+    <%= form_with(model: resource, local: true, url: registration_path(resource_name), html: { class: "", onsubmit: "return validatePassword()" }) do |form| %>
+    <div class="mb-4">
+      <label class="block text-gray-700 font-medium mb-2">Email</label>
+      <%= form.email_field :email, class: "bg-gray-400 p-2 rounded-lg w-64" %>
+    </div>
+    <div class="mb-4">
+      <label class="block text-gray-700 font-medium mb-2">Password</label>
+      <%= form.password_field :password, class: "bg-gray-400 p-2 rounded-lg w-64", id: "user_password" %>
+    </div>
+    <div class="mb-4">
+      <label class="block text-gray-700 font-medium mb-2">Confirm Password</label>
+      <%= form.password_field :password_confirmation, class: "bg-gray-400 p-2 rounded-lg w-64", id: "user_password_confirmation" %>
+    </div>
+    <div class="text-center mt-6">
+      <p class="text-red-500 text-xs italic" id="error-message" style="display:none;"></p>
+      <%= form.submit "Sign Up", class: "bg-indigo-500 text-white p-2 rounded-lg hover:bg-indigo-600", onclick: "return validatePassword()" %>
+    </div>
+    <% end %>
+  </div>
+</body>
+</html>

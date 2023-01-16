@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Transparensee</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+</head>
+
+<body class="bg-gray-100 h-screen">
+  <nav class="bg-indigo-500 text-white py-2">
+    <div class="container mx-auto flex items-center justify-between">
+      <div>
+        <h1 class="text-2xl font-medium">Transparensee</h1>
+      </div>
+      <div class="flex items-center">
+        <% if user_signed_in? %>
+        <%= button_to "Logout", destroy_user_session_path, method: :delete, data: { "turbo-method": :delete }, class: "text-white hover:text-gray-300 px-4" %>
+        <% else %>
+        <%= link_to "Sign In", new_user_session_path, class: "text-white hover:text-gray-300 px-4" %>
+        <% end %>
+      </div>
+    </div>
+  </nav>
+  <div class="container mx-auto flex items-center justify-center h-full">
+    <%= yield %>
+  </div>
+</body>
+</html>
